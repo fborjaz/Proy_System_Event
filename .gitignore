@@ -16,4 +16,5 @@ __pycache__/
 logs/
 
 # Archivos y directorios de migraciones
+*/migrations/
 */migrations/__pycache__/
