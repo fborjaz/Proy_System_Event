@@ -1,4 +1,19 @@
+# Entorno virtual
 .venv/
-core/__pycache__/
-core/migrations/__pycache__/
-System_Event/__pycache__/
+
+# Archivos y directorios Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos y directorios de logs
+*.log
+logs/
+
+# Archivos y directorios de migraciones
+*/migrations/__pycache__/
