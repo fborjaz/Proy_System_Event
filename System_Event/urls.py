@@ -19,20 +19,20 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
-from core import views
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView 
 
 urlpatterns = [
     # URLs de la aplicación de administración de Django
     path("admin/", admin.site.urls),
 
-    # URLs de la aplicación principal (core)
-    path("", views.home, name="base"),  # URL para la página de inicio
-    path("signup/", views.signup, name="signup"),  # URL para el registro de usuarios
-    path("signin/", views.AppLoginView.as_view(), name="signin"),  # URL para el inicio de sesión
-    path("logout/", views.signout, name="logout"),  # URL para cerrar sesión
+    # Incluye las URLs de la aplicación 'core' en el espacio de nombres 'core'
+    path("", include("core.urls", namespace="core")),
 
-
-    # Incluye las URLs de la aplicación 'core' en un espacio de nombres llamado 'core'
-    path('core/', include('core.urls', namespace='core')),
-
+    # URLs para la documentación de la API con drf-spectacular
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
+
+# Servir archivos media en desarrollo (SOLO si DEBUG=True)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
