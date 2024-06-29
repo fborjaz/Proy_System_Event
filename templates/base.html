@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/layout/navigation.css' %}">
+  <link rel="icon" href="{% static 'images/favicon-001.png' %}" type="image/x-icon">
+  <title>{% block title %}{% endblock title %} Home</title>
+</head>
+
+<body>
+
+  <header id="header">
+    <div class="">
+        {% include 'partials/header.html' %}
+    </div>
+  </header>
+
+  <main id="content" class="py-8">
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      <div id="main-content" class="container mx-auto">
+          {% block content %}
+          {% endblock content %}
+          {% if show_login_modal %}
+              <div id="login-modal" class="modal" style="display: block;">
+                  <div class="modal-content">
+                      <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
+                      <h2>Login</h2>
+                      {% include 'signin.html' %}
+                  </div>
+              </div>
+          {% endif %}
+
+          {% if show_signup_modal %}
+              <div id="signup-modal" class="modal" style="display: block;">
+                  <div class="modal-content">
+                      <span class="close-btn" onclick="closeModal('signup-modal')">&times;</span>
+                      <h2>Signup</h2>
+                      {% include 'signup.html' %}
+                  </div>
+              </div>
+          {% endif %}
+
+      </div>
+  </main>
+
+  <footer id="footer" class="bg-secondary py-4 text-center">
+    {% include 'partials/footer.html' %}
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+</body>
+</html>

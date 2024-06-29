@@ -14,9 +14,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
+from django.conf import settings
+from django.urls import path, include
+from django.conf.urls.static import static
+from core import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # URLs de la aplicación de administración de Django
+    path("admin/", admin.site.urls),
+
+    # URLs de la aplicación principal (core)
+    path("", views.home, name="base"),  # URL para la página de inicio
+    path("signup/", views.signup, name="signup"),  # URL para el registro de usuarios
+    path("signin/", views.AppLoginView.as_view(), name="signin"),  # URL para el inicio de sesión
+    path("logout/", views.signout, name="logout"),  # URL para cerrar sesión
+
+
+    # Incluye las URLs de la aplicación 'core' en un espacio de nombres llamado 'core'
+    path('core/', include('core.urls', namespace='core')),
+
 ]
