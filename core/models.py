@@ -19,7 +19,7 @@ class Inscripcion(models.Model):
     fecha_inscripcion = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('evento', 'usuario') 
+        unique_together = ('evento', 'usuario')
 
         
 
