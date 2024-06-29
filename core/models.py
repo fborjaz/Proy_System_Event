@@ -20,6 +20,3 @@ class Inscripcion(models.Model):
 
     class Meta:
         unique_together = ('evento', 'usuario')
-
-        
-
