@@ -1,69 +1,35 @@
 {% load static %}
 
-<nav aria-label="Menú principal">
-  <ul class="menu flex justify-center space-x-4 bg-secondary p-4 rounded-md" role="menubar">
+<nav aria-label="Menú principal" role="navigation">
+    <ul class="menu" role="menubar">
+        <li role="none" {% if request.resolver_match.url_name == 'core:home' %}class="active"{% endif %}>
+            <a href="{% url 'core:home' %}" role="menuitem">
+                <i class="fas fa-home"></i> Inicio
+            </a>
+        </li>
 
-    <li role="none" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-      <a href="{% url 'home' %}"
-         role="menuitem"
-         aria-current="{% if request.resolver_match.url_name == 'home' %}page{% endif %}"
-         class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-        <i class="fas fa-home mr-2"></i> Inicio
-      </a>
-    </li>
-
-    {% if user.is_authenticated %}
-      <li role="none" class="{% if request.resolver_match.url_name == 'core:product_list' %}active{% endif %}">
-        <a href="{% url 'core:product_list' %}"
-           role="menuitem"
-           aria-current="{% if request.resolver_match.url_name == 'core:product_list' %}page{% endif %}"
-           class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-          <i class="fas fa-box-open mr-2" aria-hidden="true"></i> Productos
-        </a>
-      </li>
-
-      <li role="none" class="{% if request.resolver_match.url_name == 'core:brand_list' %}active{% endif %}">
-        <a href="{% url 'core:brand_list' %}"
-           role="menuitem"
-           aria-current="{% if request.resolver_match.url_name == 'core:brand_list' %}page{% endif %}"
-           class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-          <i class="fas fa-tags mr-2" aria-hidden="true"></i> Marcas
-        </a>
-      </li>
-
-      <li role="none" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
-        <a href="{% url 'profile' %}"
-           role="menuitem"
-           aria-current="{% if request.resolver_match.url_name == 'profile' %}page{% endif %}"
-           class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-          <i class="fas fa-user mr-2"></i> Mi perfil
-        </a>
-      </li>
-      <li role="none" class="{% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
-        <a href="{% url 'logout' %}"
-           role="menuitem"
-           aria-current="{% if request.resolver_match.url_name == 'logout' %}page{% endif %}"
-           class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-          <i class="fas fa-sign-out-alt mr-2"></i> Cerrar sesión
-        </a>
-      </li>
-    {% else %}
-      <li role="none" class="{% if request.resolver_match.url_name == 'signin' %}active{% endif %}">
-        <a href="#" onclick="openModal('login-modal')"
-           role="menuitem"
-           aria-current="{% if request.resolver_match.url_name == 'signin' %}page{% endif %}"
-           class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-          <i class="fas fa-sign-in-alt mr-2"></i> Iniciar sesión
-        </a>
-      </li>
-      <li role="none" class="{% if request.resolver_match.url_name == 'signup' %}active{% endif %}">
-        <a href="#" onclick="openModal('signup-modal')"
-           role="menuitem"
-           aria-current="{% if request.resolver_match.url_name == 'signup' %}page{% endif %}"
-           class="block flex items-center py-2 px-4 text-white rounded-md hover:bg-accent hover:text-primary">
-          <i class="fas fa-user-plus mr-2"></i> Registrarse
-        </a>
-      </li>
-    {% endif %}
-  </ul>
+        {% if user.is_authenticated %}
+            <li role="none" {% if request.resolver_match.url_name == 'core:lista_eventos' %}class="active"{% endif %}>
+                <a href="{% url 'core:lista_eventos' %}" role="menuitem">
+                    <i class="fas fa-box-open"></i> Lista de Eventos
+                </a>
+            </li>
+            <li role="none" {% if request.resolver_match.url_name == 'core:logout' %}class="active"{% endif %}>
+                <a href="{% url 'core:logout' %}" role="menuitem">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                </a>
+            </li>
+        {% else %}
+            <li role="none" {% if request.resolver_match.url_name == 'core:login' %}class="active"{% endif %}>
+                <a href="login/" onclick="openModal('login-modal')" role="menuitem">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                </a>
+            </li>
+            <li role="none" {% if request.resolver_match.url_name == 'core:register' %}class="active"{% endif %}>
+                <a href="register/" onclick="openModal('signup-modal')" role="menuitem">
+                    <i class="fas fa-user-plus"></i> Registrarse
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 </nav>

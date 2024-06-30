@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container"> 
+  {% if user.is_authenticated %}
+    <section class="hero">
+      <div class="hero-content">
+        <div>
+          <h1>Sistema de gestión de eventos</h1>
+          <p>Tu mejor opción para gestionar todos tus eventos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-us">
+      <h2>Sobre Nosotros</h2>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam tenetur ea est praesentium omnis dignissimos consequatur accusantium esse fuga eveniet necessitatibus, eius repellat temporibus saepe eligendi eaque expedita voluptatem similique?.</p>
+    </section>
+  {% else %}
+    <section class="welcome">
+      <h2>¡Bienvenido a Gestión de eventos unemi!</h2>
+      <p>Por favor, inicia sesión o regístrate para acceder a nuestros productos y servicios.</p>
+      <div class="button-group">
+        <a href="{% url 'core:login' %}">Iniciar Sesión</a>
+        <a href="{% url 'core:register' %}">Registrarse</a>
+      </div>
+    </section>
+  {% endif %}
+</div>
+{% endblock content %}

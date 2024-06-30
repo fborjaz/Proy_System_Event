@@ -19,18 +19,17 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView 
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     # URLs de la aplicación de administración de Django
     path("admin/", admin.site.urls),
-
     # Incluye las URLs de la aplicación 'core' en el espacio de nombres 'core'
     path("", include("core.urls", namespace="core")),
-
     # URLs para la documentación de la API con drf-spectacular
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/docs/",SpectacularSwaggerView.as_view(url_name="schema"),name="swagger-ui",
+    ),
 ]
 
 # Servir archivos media en desarrollo (SOLO si DEBUG=True)

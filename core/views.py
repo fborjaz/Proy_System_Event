@@ -8,12 +8,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from core.forms import UserLoginForm, UserCreationForm
+
 from .models import User, Evento
 from .serializers import (
     RegisterUserSerializer,
     MyTokenObtainPairSerializer,
     UserSerializer,
 )
+
+from django.contrib.auth.views import LogoutView
 
 from rest_framework import generics
 from .models import Inscripcion
@@ -23,6 +27,15 @@ from rest_framework import viewsets
 from .serializers import UserSerializer, EventoSerializer, InscripcionSerializer
 
 # Create your views here.
+
+
+def home_view(request):
+    data = {"title1": "Autor | TeacherCode", "title2": "Super Mercado Economico"}
+    return render(request, "pages/home.html", data)
+
+
+def logout_view(request):
+    LogoutView.as_view(next_page="core:home")
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
@@ -147,9 +160,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(
-                "home"
-            )  # Reemplaza 'home' con la URL de tu página de inicio
+            return redirect("home")  # Reemplaza 'home' con la URL de tu página de inicio
     else:
         form = UserCreationForm()
     return render(request, "pages/register.html", {"form": form})
@@ -157,4 +168,4 @@ def register_view(request):
 
 def lista_eventos(request):
     eventos = Evento.objects.filter(creador=request.user)
-    return render(request, "eventos/lista_eventos.html", {"eventos": eventos})
+    return render(request, "pages/home.html", {"eventos": eventos})
