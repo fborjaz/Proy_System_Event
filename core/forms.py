@@ -4,24 +4,25 @@ from django.utils.translation import gettext_lazy as _
 from .models import User
 
 
-class UserCreationForm(UserCreationForm):
-    confirm_password = forms.CharField(
-        label=_("Confirmar contraseña"),
-        widget=forms.PasswordInput(attrs={"class": "form-control"}),
-    )
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import get_user_model
 
-    class Meta(UserCreationForm.Meta):
+User = get_user_model()
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
         model = User
-        fields = ("email",)
-        widgets = {"email": forms.EmailInput(attrs={"class": "form-control"})}
+        fields = ("email","name","last_name","avatar",)  # Incluye todos los campos de tu modelo
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
-
-        if password and confirm_password and password != confirm_password:
-            raise forms.ValidationError(_("Las contraseñas no coinciden."))
+    def clean_password2(self):
+        # Validación de que las contraseñas coincidan
+        password = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("password2")
+        if password and password2 and password != password2:
+            raise forms.ValidationError("Las contraseñas no coinciden.")
+        return password2
 
 
 class UserLoginForm(AuthenticationForm):

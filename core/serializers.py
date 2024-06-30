@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import get_user_model
+from .models import Evento, Inscripcion
 
-from .models import User, Evento, Inscripcion
+
+User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,9 +30,19 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         fields = ["email", "name", "last_name", "password"]
         extra_kwargs = {"password": {"write_only": True}}
 
+    def validate_email(self, value):
+        # Validar que el correo electrónico sea único
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError(
+                "Este correo electrónico ya está registrado."
+            )
+        return value
+
 
 class EventoSerializer(serializers.ModelSerializer):
-    creador = UserSerializer(read_only=True)
+    creador = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all()
+    )  # Solo el ID del creador
 
     class Meta:
         model = Evento
@@ -37,8 +50,8 @@ class EventoSerializer(serializers.ModelSerializer):
 
 
 class InscripcionSerializer(serializers.ModelSerializer):
-    evento = EventoSerializer(read_only=True)
-    usuario = UserSerializer(read_only=True)
+    evento = serializers.PrimaryKeyRelatedField(queryset=Evento.objects.all())
+    usuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Inscripcion

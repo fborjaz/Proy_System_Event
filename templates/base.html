@@ -9,13 +9,17 @@
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <link rel="stylesheet" href="{% static 'css/layout/header.css' %}">
   <link rel="stylesheet" href="{% static 'css/layout/navigation.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/button.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/modal.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/form.css' %}">
   <link rel="icon" href="{% static 'images/favicon-001.png' %}" type="image/x-icon">
   <title>{% block title %}{% endblock title %} Home </title>
 </head>
 <body>
 
   <header id="header">
-    <div class="">
+    <div>
         {% include 'partials/header.html' %}
     </div>
   </header>
