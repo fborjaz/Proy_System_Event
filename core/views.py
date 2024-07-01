@@ -1,9 +1,10 @@
 # views.py
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UserLoginForm, CustomUserCreationForm
 from .models import Evento
 from django.contrib.auth import login
@@ -12,6 +13,13 @@ from django.contrib.auth import login
 class CustomLoginView(LoginView):
     form_class = UserLoginForm
     template_name = "pages/login.html"
+
+    def get_success_url(self):
+        next_url = self.request.POST.get("next")
+        if next_url:
+            return next_url
+        else:
+            return reverse_lazy("core:home")
 
 
 class RegisterView(CreateView):
@@ -34,6 +42,12 @@ class RegisterView(CreateView):
 def home_view(request):
     data = {"title1": "Autor | Frank Borja", "title2": "Sistemas de gestion de eventos"}
     return render(request, "pages/home.html", data)
+
+
+def logout_view(request):
+    logout(request) 
+    messages.success(request, "Has cerrado sesión exitosamente.")
+    return redirect("core:home")
 
 
 def lista_eventos(request):

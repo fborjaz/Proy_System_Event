@@ -14,7 +14,8 @@
     margin: 0;
 }
 
-.menu a {
+.menu a,
+.menu button {
     display: flex;
     align-items: center;
     padding: 1rem 1.5rem;
@@ -22,31 +23,35 @@
     text-decoration: none;
     font-weight: 500;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
+}    
 
 /* Iconos */
-.menu a i {
-    margin-right: 0.5rem;
+.menu a i, 
+.menu button i { margin-right: 0.5rem;
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu button:hover { 
     background-color: var(--accent-color);
     color: var(--primary-color);
 }
 
-.menu .active a {
+.menu .active a,
+.menu .active button {
     background-color: var(--accent-color);
     color: white;
 }
 
-/* Estilo para el enlace activo */
-.menu .active a {
+/* Estilo para el enlace/botón activo */
+.menu .active a,
+.menu .active button {
     position: relative;
-    color: var(--accent-color);
+    color: var(--accent-color); 
     color: white;
 }
 
-.menu .active a::after {
+.menu .active a::after,
+.menu .active button::after {
     content: "";
     position: absolute;
     left: 0;
@@ -54,4 +59,26 @@
     width: 100%;
     height: 3px;
     background-color: var(--accent-color);
+}
+
+.inline-form {
+    display: inline;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
 }

@@ -3,6 +3,7 @@ from .views import (
     CustomLoginView,
     RegisterView,
     LogoutView,
+    logout_view,
     home_view,
     lista_eventos,
 )

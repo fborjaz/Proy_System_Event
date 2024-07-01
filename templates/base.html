@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,7 @@
   <title>{% block title %}{% endblock title %} Home </title>
 </head>
 <body>
+    <script src="{% static 'js/script.js' %}"></script>
 
   <header id="header">
     <div>
@@ -36,23 +38,23 @@
           {% block content %}
           {% endblock content %}
           {% if show_login_modal %}
-              <div id="login-modal" class="modal" style="display: block;">
-                  <div class="modal-content">
-                      <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
-                      <h2>Login</h2>
-                      {% include 'signin.html' %}
-                  </div>
-              </div>
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('login-modal')">&times;</span>
+                <h2>Login</h2>
+                {% include 'pages/login.html' %}
+            </div>
+        </div>
           {% endif %}
 
           {% if show_signup_modal %}
-              <div id="signup-modal" class="modal" style="display: block;">
-                  <div class="modal-content">
-                      <span class="close-btn" onclick="closeModal('signup-modal')">&times;</span>
-                      <h2>Signup</h2>
-                      {% include 'signup.html' %}
-                  </div>
-              </div>
+        <div id="signup-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('signup-modal')">&times;</span>
+                <h2>Signup</h2>
+                {% include 'pages/register.html' %}
+            </div>
+        </div>
           {% endif %}
 
       </div>
