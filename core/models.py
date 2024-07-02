@@ -72,16 +72,14 @@ class Evento(models.Model):
     ubicacion = models.CharField(max_length=200)
     fecha_hora = models.DateTimeField()
     creador = models.ForeignKey(User, on_delete=models.CASCADE)
-    capacidad = models.PositiveIntegerField(default=10)
-    imagen = models.ImageField(
-        upload_to="eventos/", null=True, blank=True
-    )  # Imagen opcional
+    capacidad = models.PositiveIntegerField(default=0)
+    imagen = models.ImageField(upload_to='images/', null=True, blank=True, default='default_event_image.jpg')  # Imagen opcional
 
     def __str__(self):
         return self.nombre
 
     def clean(self):
-        if self.fecha_hora < timezone.now():
+        if self.fecha_hora and self.fecha_hora < timezone.now():
             raise ValidationError("La fecha del evento debe ser futura.")
 
     def cupos_disponibles(self):

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
-from .models import User
+from .models import User, Evento
+from django.utils import timezone
 
 
 from django import forms
@@ -29,3 +30,14 @@ class UserLoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ("email", "password")
+
+class EventoForm(forms.ModelForm):
+    class Meta:
+        model = Evento
+        fields = ['nombre', 'descripcion', 'ubicacion', 'fecha_hora', 'capacidad', 'imagen']
+
+    def clean_fecha_hora(self):
+        fecha_hora = self.cleaned_data['fecha_hora']
+        if fecha_hora <= timezone.now():
+            raise forms.ValidationError("La fecha y hora del evento deben ser futuras.")
+        return fecha_hora

@@ -1,0 +1,98 @@
+:root {
+    --primary-color: #212121;
+    /* Gris oscuro (fondo principal) */
+    --secondary-color: #333333;
+    /* Gris medio (fondo secundario) */
+    --accent-color: #12c064;
+    /* Verde (acentos y enlaces) */
+    --text-color: #f2f2f2;
+    /* Blanco (texto principal) */
+    --text-secondary-color: #aaaaaa;
+    /* Gris claro (texto secundario) */
+    --error-color: #dc3545;
+    /* Rojo (mensajes de error) */
+    /* Nueva variable */
+    --title-font: 'Roboto', sans-serif;
+    /* Fuente para títulos (sans-serif minimalista) */
+    --body-font: 'Roboto', sans-serif;
+    /* Fuente para texto (sans-serif minimalista) */
+}
+
+body {
+    font-family: var(--body-font);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--title-font);
+    margin-top: 0;
+    color: var(--text-color);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, var(--accent-color), #007bff);
+    /* Degradado de verde a azul */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-secondary-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: lighten(var(--accent-color), 10%);
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mis Inscripciones</h2>
+
+{% if inscripciones %}
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Evento</th>
+            <th>Fecha de inscripción</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inscripcion in inscripciones %}
+        <tr>
+            <td>{{ inscripcion.evento.nombre }}</td>
+            <td>{{ inscripcion.fecha_inscripcion }}</td>
+            <td>{{ inscripcion.estado }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>{{ mensaje_no_inscripciones }} <a href="{% url 'core:lista_eventos' %}">Lista de eventos</a></p>
+{% endif %}
+{% endblock %}
+

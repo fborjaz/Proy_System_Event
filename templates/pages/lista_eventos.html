@@ -1,11 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>|Lista de eventos|</title>
-</head>
-<body>
-    <h1>Eventos</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lista de Evento{% endblock title %}
+
+{% block content %}
+<div class="table-container">
+    <h1 class="title"><i class="fas fa-calendar-alt"></i> Lista de Eventos</h1>  
+    {% if eventos %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th><i class="fas fa-image"></i> Imagen</th> 
+                <th><i class="fas fa-heading"></i> Nombre</th>
+                <th><i class="fas fa-align-justify"></i> Descripción</th>
+                <th><i class="fas fa-map-marker-alt"></i> Ubicación</th>
+                <th><i class="fas fa-calendar-day"></i> Fecha y Hora</th>
+                <th><i class="fas fa-users"></i> Capacidad</th>
+                <th><i class="fas fa-user"></i> Creador</th>
+                <th><i class="fas fa-cogs"></i> Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos %}
+                <tr>
+                    <td>
+                        {% if evento.imagen %}
+                            <img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}" width="100">
+                        {% else %}
+                            <img src="{% static 'images/default_event_image.jpg' %}" alt="Imagen por defecto" width="100">
+                        {% endif %}
+                    </td>
+                    <td><a href="{% url 'core:detalle_evento' evento.pk %}">{{ evento.nombre }}</a></td>
+                    <td>{{ evento.descripcion }}</td>
+                    <td>{{ evento.ubicacion }}</td>
+                    <td>{{ evento.fecha_hora|date:"d/m/Y H:i" }}</td>
+                    <td>{{ evento.capacidad }}</td>
+                    <td>{{ evento.creador.name }} {{ evento.creador.last_name }}</td>  
+                    <td>
+                        {% if user.is_authenticated %}
+                            <form method="POST" action="{% url 'core:inscribirse' evento.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-user-check"></i> Inscribirse</button>
+                            </form> 
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Iniciar sesión para inscribirse</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No hay eventos disponibles.</p>
+    {% endif %}
+      <div class="form-group">
+        <a class="btn blue" href="{% url 'core:crear_evento' %}"><i class="fas fa-plus"></i>Nuevo Evento</a> 
+    </div>
+</div>
+{% endblock %}
+
+

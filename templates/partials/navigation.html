@@ -17,7 +17,7 @@
             <li role="none" {% if request.resolver_match.url_name == 'logout' %}class="active"{% endif %}>
                 <form method="POST" action="{% url 'core:logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="link-button" role="menuitem">
+                    <button type="submit" class="btn btn-primary" role="menuitem">
                         <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                     </button>
                 </form>

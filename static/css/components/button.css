@@ -16,6 +16,7 @@
 
 .btn-primary:hover {
     background-color: var(--secondary-color);
+    color: white;
     /* Usamos el color secundario, que ya es más oscuro */
 }
 

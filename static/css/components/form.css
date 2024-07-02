@@ -10,12 +10,37 @@
     margin-bottom: 1.5rem;
 }
 
-/* Estilos para las etiquetas */
+/* Estilos para las etiquetas (modificado) */
 label {
-    display: block;
+    display: flex; /* Usamos flexbox para alinear el ícono y el texto */
+    align-items: center; /* Alineamos verticalmente al centro */
     margin-bottom: 0.5rem;
     color: var(--text-color);
-    /* Color de texto blanco */
+}
+
+label i {
+    margin-right: 0.5rem; 
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--text-secondary-color);
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-sizing: border-box;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+
+input[type="file"] {
+    display: block;
+    margin-top: 0.5rem;
 }
 
 /* Estilos para los campos de entrada */
