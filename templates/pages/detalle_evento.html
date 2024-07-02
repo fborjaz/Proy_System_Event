@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalle Evento{% endblock title %}
 
 {% block content %}
 <div class="container">
@@ -8,11 +11,11 @@
         <div class="evento-info">
             <div class="evento-imagen">
                 {% if evento.imagen %}
-                    <img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}">
+                    <img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}"> 
                 {% else %}
                     <img src="{% static 'images/default_event_image.jpg' %}" alt="Imagen por defecto">
                 {% endif %}
-            </div>
+            </div> 
             <div class="evento-detalles">
                 <p><i class="fas fa-align-justify"></i> <strong>Descripción:</strong> {{ evento.descripcion }}</p>
                 <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> {{ evento.ubicacion }}</p>

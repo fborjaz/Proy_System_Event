@@ -136,6 +136,11 @@ class EventoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         """Verifica si el usuario tiene permiso para editar el evento."""
         evento = self.get_object()
         return self.request.user == evento.creador or self.request.user.is_staff
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'El evento ha sido actualizado exitosamente.')
+        return response
 
 
 class EventoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -149,6 +154,10 @@ class EventoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """Verifica si el usuario tiene permiso para eliminar el evento."""
         evento = self.get_object()
         return self.request.user == evento.creador or self.request.user.is_staff
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'El evento ha sido eliminado exitosamente.')
+        return super().delete(request, *args, **kwargs)
 
 
 # -------------------------

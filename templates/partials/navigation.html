@@ -3,38 +3,38 @@
 <nav aria-label="Menú principal" role="navigation">
     <ul class="menu" role="menubar">
         <li role="none" {% if request.resolver_match.url_name == 'core:home' %} class="active"{% endif %}>
-            <a href="{% url 'core:home' %}" role="menuitem">
-                <i class="fas fa-home"></i> Inicio
+            <a href="{% url 'core:home' %}" role="menuitem" title="Ir a la página de inicio">
+                <i class="fas fa-house-user"></i> Inicio 
             </a>
         </li>
 
         {% if user.is_authenticated %}
             <li role="none" {% if request.resolver_match.url_name == 'core:lista_eventos' %} class="active"{% endif %}>
-                <a href="{% url 'core:lista_eventos' %}" role="menuitem">
-                    <i class="fas fa-box-open"></i> Lista de Eventos
+                <a href="{% url 'core:lista_eventos' %}" role="menuitem" title="Ver lista de eventos">
+                    <i class="fas fa-calendar-alt"></i> Eventos
                 </a>
             </li>
             <li role="none" {% if request.resolver_match.url_name == 'core:mis_inscripciones' %} class="active"{% endif %}>
-                <a href="{% url 'core:mis_inscripciones' %}" role="menuitem">
-                    <i class="fas fa-box-open"></i> Mis inscripciones
+                <a href="{% url 'core:mis_inscripciones' %}" role="menuitem" title="Ver mis inscripciones">
+                    <i class="fas fa-clipboard-list"></i> Mis Inscripciones
                 </a>
             </li>
             <li role="none" {% if request.resolver_match.url_name == 'logout' %}class="active"{% endif %}>
                 <form method="POST" action="{% url 'core:logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-primary" role="menuitem">
+                    <button type="submit" class="link-button" role="menuitem" title="Cerrar sesión">
                         <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                     </button>
                 </form>
             </li>
         {% else %}
             <li role="none" {% if request.resolver_match.url_name == 'core:login' %} class="active"{% endif %}>
-                <a href="{% url 'core:login' %}" onclick="openModal('login-modal')" role="menuitem">
-                    <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+                <a href="#" onclick="openModal('login-modal')" role="menuitem" title="Iniciar sesión">
+                    <i class="fas fa-user-lock"></i> Iniciar sesión 
                 </a>
             </li>
             <li role="none" {% if request.resolver_match.url_name == 'core:register' %} class="active"{% endif %}>
-                <a href="{% url 'core:register' %}" onclick="openModal('signup-modal')" role="menuitem">
+                <a href="#" onclick="openModal('signup-modal')" role="menuitem" title="Crear una cuenta">
                     <i class="fas fa-user-plus"></i> Registrarse
                 </a>
             </li>

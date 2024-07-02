@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Mis Inscripciones{% endblock title %}
 
 {% block content %}
-<h2><i class="fas fa-list-ul"></i> Mis Inscripciones</h2>
+<h1 class="title"><i class="fas fa-list-ul"></i> Mis Inscripciones</h1>
 
 {% if inscripciones %}
 <table class="styled-table">
@@ -19,8 +20,8 @@
         {% for inscripcion in inscripciones %}
         <tr>
             <td>
-                {% if evento.imagen %}
-                            <img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}" width="100">
+                {% if inscripcion.evento.imagen %}
+                    <img src="{{ inscripcion.evento.imagen.url }}" alt="{{ inscripcion.evento.nombre }}" width="100">
                 {% else %}
                     <img src="{% static 'images/default_event_image.jpg' %}" alt="Imagen por defecto" width="100">
                 {% endif %}

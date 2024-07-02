@@ -35,6 +35,7 @@ class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
         fields = ['nombre', 'descripcion', 'ubicacion', 'fecha_hora', 'capacidad', 'imagen']
+        fecha_hora = forms.SplitDateTimeField(widget=forms.SplitDateTimeWidget(date_attrs={'type': 'date'}, time_attrs={'type': 'time'}))
 
     def clean_fecha_hora(self):
         fecha_hora = self.cleaned_data['fecha_hora']
