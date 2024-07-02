@@ -16,6 +16,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserLoginForm, CustomUserCreationForm, EventoForm
 from .models import Evento, Inscripcion
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 # -------------------------
@@ -177,4 +179,5 @@ def inscribirse(request, pk):
         else:
             messages.info(request, "Ya estás inscrito en este evento.")
 
-    return redirect("core:detalle_evento", pk=evento.pk)
+        # Redirigir a la misma página (lista de eventos) con el mensaje
+        return redirect(reverse("core:lista_eventos"))

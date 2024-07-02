@@ -1,26 +1,46 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalle de evento{% endblock title %}
 
 {% block content %}
-<h2>{{ evento.nombre }}</h2>
+<div class="container">
+    <div class="evento-detail">
+        <h2 class="title"><i class="fas fa-calendar-alt"></i> {{ evento.nombre }}</h2>
+        <div class="evento-info">
+            <div class="evento-imagen">
+                {% if evento.imagen %}
+                    <img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}">
+                {% else %}
+                    <img src="{% static 'images/default_event_image.jpg' %}" alt="Imagen por defecto">
+                {% endif %}
+            </div>
+            <div class="evento-detalles">
+                <p><i class="fas fa-align-justify"></i> <strong>Descripción:</strong> {{ evento.descripcion }}</p>
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
+                <p><i class="fas fa-calendar-day"></i> <strong>Fecha y Hora:</strong> {{ evento.fecha_hora|date:"d/m/Y H:i" }}</p>
+                <p><i class="fas fa-users"></i> <strong>Capacidad:</strong> {{ evento.capacidad }}</p>
+                <p><i class="fas fa-user"></i> <strong>Creador:</strong> {{ evento.creador.name }} {{ evento.creador.last_name }}</p>
+            </div>
+        </div>
 
-<img src="{{ evento.imagen.url }}" alt="{{ evento.nombre }}" width="200">
-<p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
-<p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
-<p><strong>Fecha y Hora:</strong> {{ evento.fecha_hora }}</p>
-<p><strong>Capacidad:</strong> {{ evento.capacidad }}</p>
-<p><strong>Creador:</strong> {{ evento.creador }}</p>
+        <div class="evento-acciones">
+            {% if user.is_authenticated and not esta_inscrito %}
+                <form method="POST" action="{% url 'core:inscribirse' evento.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-user-check"></i> Inscribirse</button>
+                </form>
+            {% elif user.is_authenticated and esta_inscrito %}
+                <p>Ya estás inscrito en este evento.</p>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Iniciar sesión para inscribirse</a>
+            {% endif %}
 
-{% if user.is_authenticated and not esta_inscrito %}
-    <a href="#" class="btn btn-primary">Inscribirse</a> 
-{% elif user.is_authenticated and esta_inscrito %}
-    <p>Ya estás inscrito en este evento.</p>
-{% else %}
-    <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión para inscribirse</a>
-{% endif %}
-
-{% if request.user == evento.creador %}
-    <a href="{% url 'core:editar_evento' evento.id %}" class="btn btn-secondary">Editar</a>
-    <a href="{% url 'core:eliminar_evento' evento.id %}" class="btn btn-danger">Eliminar</a>
-{% endif %}
+            {% if request.user == evento.creador or request.user.is_staff %}
+                <a href="{% url 'core:editar_evento' evento.id %}" class="btn btn-secondary"><i class="fas fa-edit"></i> Editar</a>
+                <a href="{% url 'core:eliminar_evento' evento.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
-

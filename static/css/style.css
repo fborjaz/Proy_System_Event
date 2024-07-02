@@ -86,3 +86,35 @@ a:hover {
     margin: 0 auto;
     padding: 0 1rem;
 }
+
+/* Estilos para la página de detalle del evento */
+.evento-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.evento-info {
+    display: flex;
+    gap: 2rem;
+}
+
+.evento-imagen {
+    flex: 1;
+}
+
+.evento-imagen img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.evento-detalles {
+    flex: 2;
+}
+
+.evento-acciones {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
