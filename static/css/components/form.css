@@ -72,6 +72,47 @@ select:focus {
     /* Borde verde al enfocar */
 }
 
+/* Estilos para el campo de entrada de fecha y hora (datetime-local) */
+.form-container input[type="datetime-local"] { /* Selector más específico */
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--text-secondary-color); 
+    border-radius: 5px;
+    background-color: #fff; /* Fondo blanco */
+    color: #333; /* Color de texto negro */
+    box-sizing: border-box;
+}
+
+.form-container input[type="datetime-local"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Estilos para el campo de entrada de archivo (file) */
+input[type="file"] {
+    display: block;
+    width: 100%; 
+    padding: 0.5rem;
+    border: 1px solid var(--text-secondary-color);
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+input[type="file"]::file-selector-button {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: lighten(var(--accent-color), 10%);
+}
+
 /* Estilos para los botones */
 button[type="submit"] {
     background-color: var(--accent-color);
