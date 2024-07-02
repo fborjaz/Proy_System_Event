@@ -14,6 +14,11 @@
                     <i class="fas fa-box-open"></i> Lista de Eventos
                 </a>
             </li>
+            <li role="none" {% if request.resolver_match.url_name == 'core:mis_inscripciones' %} class="active"{% endif %}>
+                <a href="{% url 'core:mis_inscripciones' %}" role="menuitem">
+                    <i class="fas fa-box-open"></i> Mis inscripciones
+                </a>
+            </li>
             <li role="none" {% if request.resolver_match.url_name == 'logout' %}class="active"{% endif %}>
                 <form method="POST" action="{% url 'core:logout' %}">
                     {% csrf_token %}

@@ -73,10 +73,15 @@ class Evento(models.Model):
     fecha_hora = models.DateTimeField()
     creador = models.ForeignKey(User, on_delete=models.CASCADE)
     capacidad = models.PositiveIntegerField(default=0)
-    imagen = models.ImageField(upload_to='images/', null=True, blank=True, default='default_event_image.jpg')  # Imagen opcional
+    imagen = models.ImageField(upload_to='images/', null=True, blank=True, default='images/default_event_image.jpg')
 
     def __str__(self):
         return self.nombre
+    
+    def save(self, *args, **kwargs):
+        if not self.imagen:  # Si no se ha subido una imagen
+            self.imagen = 'images/default_event_image.jpg'  # Asignar la imagen por defecto
+        super().save(*args, **kwargs)  
 
     def clean(self):
         if self.fecha_hora and self.fecha_hora < timezone.now():

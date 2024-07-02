@@ -86,18 +86,29 @@ class EventoListView(ListView):
 
 
 class EventoDetailView(DetailView):
-    """Vista para mostrar los detalles de un evento."""
-
     model = Evento
     template_name = "pages/detalle_evento.html"
-    context_object_name = "evento"
+    context_object_name = 'evento'
 
     def get_context_data(self, **kwargs):
-        """Agrega información extra al contexto de la plantilla, como si el usuario está inscrito o no al evento."""
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context["esta_inscrito"] = self.request.user in self.object.inscriptos.all()
+            context['esta_inscrito'] = self.request.user in self.object.inscriptos.all()
         return context
+
+    def post(self, request, *args, **kwargs):
+        evento = self.get_object()
+
+        if not request.user.is_authenticated:
+            return redirect('core:login')  # Redireccionar a login si no está autenticado
+
+        if evento.cupos_disponibles() > 0:
+            Inscripcion.objects.create(evento=evento, usuario=request.user)
+            messages.success(request, 'Te has inscrito al evento exitosamente.')
+        else:
+            messages.error(request, 'Lo sentimos, el evento no tiene cupos disponibles.')
+
+        return redirect('core:lista_eventos')  # Redireccionar a la lista de eventos
 
 
 class EventoCreateView(LoginRequiredMixin, CreateView):
@@ -149,7 +160,7 @@ class InscripcionesListView(LoginRequiredMixin, ListView):
     """Vista para listar las inscripciones de un usuario."""
 
     model = Inscripcion
-    template_name = "eventos/mis_inscripciones.html"
+    template_name = "pages/mis_inscripciones.html"
     context_object_name = "inscripciones"
 
     def get_queryset(self):
