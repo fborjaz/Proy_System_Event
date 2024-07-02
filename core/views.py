@@ -171,13 +171,20 @@ def inscribirse(request, pk):
     evento = get_object_or_404(Evento, pk=pk)
 
     if request.method == "POST":
-        inscripcion, created = Inscripcion.objects.get_or_create(
-            evento=evento, usuario=request.user
-        )
-        if created:
-            messages.success(request, "Te has inscrito al evento exitosamente.")
+        if evento.cupos_disponibles() > 0:  # Verificar si hay cupos disponibles
+            inscripcion, created = Inscripcion.objects.get_or_create(
+                evento=evento, usuario=request.user
+            )
+            if created:
+                evento.capacidad -= 1  # Reducir la capacidad en 1
+                evento.save()
+                messages.success(request, "Te has inscrito al evento exitosamente.")
+            else:
+                messages.info(request, "Ya estás inscrito en este evento.")
         else:
-            messages.info(request, "Ya estás inscrito en este evento.")
+            messages.error(
+                request, "Lo sentimos, el evento no tiene cupos disponibles."
+            )
 
         # Redirigir a la misma página (lista de eventos) con el mensaje
         return redirect(reverse("core:lista_eventos"))
