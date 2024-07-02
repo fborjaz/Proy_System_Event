@@ -51,7 +51,7 @@ Este proyecto te sumerge en el mundo de la gestión de eventos, permitiéndote c
 1.  **Clonar el repositorio:**
 
     ```bash
-    git clone (https://github.com/fborjaz/Proy_System_Event.git)
+    git clone https://github.com/fborjaz/Proy_System_Event.git
     cd Proy_System_Event
     ```
 
