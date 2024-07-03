@@ -58,7 +58,7 @@ Este proyecto te sumerge en el mundo de la gestión de eventos, permitiéndote c
 2.  **Crear (o activar) un entorno virtual:**
 
     ```bash
-    py -m venv venv
+    py -m venv .venv
     .\venv\Scripts\activate  # Windows
     source venv/bin/activate  # macOS/Linux
     ```
